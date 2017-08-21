@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  author: Traveloka
+  description: Role for deploying soya based service
+  min_ansible_version: 2.3
+  platforms:
+  - name: Ubuntu
+    versions:
+    - 14.04
+  categories:
+  - nodejs
+  - pm2
+dependencies: []

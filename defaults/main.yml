@@ -1,0 +1,49 @@
+---
+# Service configurations
+
+service_entrypoint: npm
+service_args: start
+
+service_directory: "/srv/{{ service_name }}"
+service_directory_target: "{{ service_directory }}/{{ service_version }}"
+service_directory_current: "{{ service_directory }}/current"
+
+# source bundle
+
+bundle_s3_bucket: "traveloka-builds"
+bundle_s3_object: "{{ service_name }}/bin/{{ service_name }}-jenkins-{{ service_version }}.tar.gz"
+
+
+pm2_node_env: "production"
+pm2_kill_timeout: 20000
+pm2_instance_number: "{{ ansible_processor_cores }}"
+pm2_max_memory: "1G"
+pm2_node_group: "{{ ansible_hostname }}"
+
+pm2_log_date_format: "YYYY-MM-DDTHH:mm:ss ZZ"
+pm2_output_file: "/var/traveloka/log/{{ service_name }}_out.log"
+pm2_error_file: "/var/traveloka/log/{{ service_name }}_error.log"
+
+pm2_default_env:
+  NODE_ENV: "{{ pm2_node_env }}"
+  NODE_GROUP: "{{ pm2_node_group }}"
+pm2_custom_env: {}
+
+pm2_ecosystem_file: "{{ service_directory }}/ecosystem.json"
+pm2_generate_ecosystem: yes
+
+pm2_ecosystem_content:
+  apps:
+    - name: "{{ service_name }}"
+      script: "{{ service_entrypoint }}"
+      args: "{{ service_args }}"
+      cwd: "{{ service_directory_current }}"
+      env: "{{ pm2_default_env | combine(pm2_custom_env) }}"
+      exec_mode: cluster
+      instances: "{{ pm2_instance_number | default(omit) }}"
+      max_memory_restart: "{{ pm2_max_memory | default(omit) }}"
+      kill_timeout: "{{ pm2_kill_timeout | default(omit) }}"
+      merge_logs: true
+      log_date_format: "{{ pm2_log_date_format }}"
+      out_file: "{{ pm2_output_file }}"
+      error_file: "{{ pm2_error_file }}"

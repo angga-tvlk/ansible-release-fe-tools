@@ -1,0 +1,3 @@
+- include: deploy.yml
+- include: start.yml
+- include: clean.yml

@@ -1,0 +1,32 @@
+- name: download archive from s3
+  s3:
+    mode: geturl
+    bucket: "{{ bundle_s3_bucket }}"
+    object: "{{ bundle_s3_object }}"
+  run_once: true
+  delegate_to: 127.0.0.1
+  register: s3_url
+
+- name: ensure target directory exist
+  file:
+    path: "{{ service_directory_target }}"
+    state: directory
+    mode: 0755
+  become: yes
+
+- name: download & extract bundle to target machine
+  unarchive:
+    src: "{{ s3_url.url }}"
+    remote_src: yes
+    dest: "{{ service_directory_target }}"
+    owner: root
+    group: root
+  become: yes
+
+- name: set current version
+  file:
+    state: link
+    src: "{{ service_directory_target }}"
+    dest: "{{ service_directory_current }}"
+    force: yes
+  become: yes

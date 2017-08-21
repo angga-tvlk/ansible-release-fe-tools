@@ -1,0 +1,13 @@
+- become: yes
+  block:
+    - name: create ecosystem file
+      copy:
+        content: "{{ pm2_ecosystem_content | to_json }}"
+        dest: "{{ pm2_ecosystem_file }}"
+      when: pm2_generate_ecosystem
+
+    - name: start service using pm2
+      command: "pm2 startOrReload {{ pm2_ecosystem_file }} --silent --update-env"
+
+    - name: save pm2 list
+      command: pm2 save

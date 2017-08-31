@@ -6,6 +6,10 @@
         dest: "{{ pm2_ecosystem_file }}"
       when: pm2_generate_ecosystem
 
+    - name: delete running pm2 service
+      command: "pm2 delete {{ service_name }}"
+      when: pm2_delete_before_start
+
     - name: start service using pm2
       command: "pm2 startOrReload {{ pm2_ecosystem_file }} --silent --update-env"
 

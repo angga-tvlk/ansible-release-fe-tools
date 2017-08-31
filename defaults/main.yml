@@ -42,7 +42,7 @@ pm2_ecosystem_content:
       cwd: "{{ service_directory_current }}"
       env: "{{ pm2_default_env | combine(pm2_custom_env) }}"
       exec_mode: cluster
-      instance_var: "{{ pm2_instance_var }}",
+      instance_var: "{{ pm2_instance_var }}"
       instances: "{{ pm2_instance_number | default(omit) }}"
       max_memory_restart: "{{ pm2_max_memory | default(omit) }}"
       kill_timeout: "{{ pm2_kill_timeout | default(omit) }}"
@@ -50,4 +50,4 @@ pm2_ecosystem_content:
       log_date_format: "{{ pm2_log_date_format }}"
       out_file: "{{ pm2_output_file }}"
       error_file: "{{ pm2_error_file }}"
-      wait_ready: {{ pm2_wait_ready | default(omit) }}
+      wait_ready: "{{ pm2_wait_ready | default(omit) }}"

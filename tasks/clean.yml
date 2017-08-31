@@ -1,9 +1,11 @@
-- find:
+- name: find previous release directory
+  find:
     path: "{{ service_directory }}"
     file_type: directory
   register: find_result
 
-- file:
+- name: remove previous release directory
+  file:
     path: "{{ item }}"
     state: absent
   with_items: "{{ find_result.files | map(attribute='path') | list }}"

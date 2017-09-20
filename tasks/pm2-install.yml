@@ -1,0 +1,24 @@
+- name: Install pm2
+  npm:
+    name: pm2
+    global: yes
+    version: "^2.6.0"
+  register: npm_result
+  become: yes
+
+- name: configure pm2
+  # when: npm_result | changed
+  become: yes
+  block:
+    # http://pm2.keymetrics.io/docs/usage/startup/
+    - name: register startup script
+      command: pm2 startup
+
+    # https://www.npmjs.com/package/pm2-logrotate
+    - name: install pm2 logrotate
+      command: pm2 install pm2-logrotate
+
+    - name: set pm2 logrotate configuration
+      shell: >-
+        pm2 set pm2-logrotate:max_size 500M &&
+        pm2 set pm2-logrotate:retain 10

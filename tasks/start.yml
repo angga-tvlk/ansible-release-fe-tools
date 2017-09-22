@@ -8,7 +8,7 @@
 
     - name: delete running pm2 service
       command: "pm2 delete {{ service_name }}"
-      ignore_errors: yes
+      when: pm2_delete_before_start
 
     - name: start service using pm2
       command: "pm2 startOrReload {{ pm2_ecosystem_file }} --silent --update-env"

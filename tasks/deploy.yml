@@ -14,14 +14,30 @@
     mode: 0755
   become: yes
 
-- name: download & extract bundle to target machine
-  unarchive:
-    src: "{{ s3_url.url }}"
-    remote_src: yes
-    dest: "{{ service_directory_target }}"
-    owner: root
-    group: root
+- set_fact:
+    s3_tmp_file: "/tmp/{{ s3_url.url | to_uuid }}.tar.gz"
+
+- name: download and extract bundle
   become: yes
+  block:
+    - name: download archive to temporary file
+      get_url:
+        url: "{{ s3_url.url }}"
+        dest: "{{ s3_tmp_file }}"
+
+    - name: extract bundle to target directory
+      unarchive:
+        src: "{{ s3_tmp_file }}"
+        remote_src: yes
+        dest: "{{ service_directory_target }}"
+        owner: root
+        group: root
+
+  always:
+    - name: remove temporary file
+      file:
+        path: "{{ s3_tmp_file }}"
+        state: absent
 
 - name: set current version
   file:

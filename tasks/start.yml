@@ -7,7 +7,7 @@
       when: pm2_generate_ecosystem
 
     - name: delete running pm2 service
-      command: "pm2 delete {{ service_name }}"
+      command: "pm2 kill"
       when: pm2_delete_before_start
 
     - name: start service using pm2

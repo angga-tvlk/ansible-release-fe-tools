@@ -8,13 +8,12 @@ service_directory: "/srv/www/{{ service_name }}"
 service_directory_target: "{{ service_directory }}/{{ service_version }}"
 service_directory_current: "{{ service_directory }}/current"
 
+pm2_node_env: "production"
 # source bundle
-
 bundle_s3_bucket: "traveloka-builds"
-bundle_s3_object: "{{ service_name }}/bin/{{ service_version }}.tar.gz"
+bundle_s3_object: "{{ service_name }}/{{ pm2_node_env }}/bin/{{ service_version }}.tar.gz"
 
 pm2_delete_before_start: false
-pm2_node_env: "production"
 pm2_kill_timeout: 20000
 pm2_instance_var: "INSTANCE_ID"
 pm2_instance_number: "{{ ansible_processor_cores }}"

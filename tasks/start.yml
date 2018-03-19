@@ -11,7 +11,7 @@
       when: pm2_delete_before_start
 
     - name: sleep for 3s
-      wait_for: timeout=3000
+      wait_for: timeout=3
       when: pm2_delete_before_start
 
     - name: start service using pm2

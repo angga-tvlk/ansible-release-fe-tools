@@ -10,6 +10,10 @@
       command: "pm2 kill"
       when: pm2_delete_before_start
 
+    - name: sleep for 3s
+      wait_for: timeout=3000
+      when: pm2_delete_before_start
+
     - name: start service using pm2
       command: "pm2 startOrReload {{ pm2_ecosystem_file }} --silent --update-env"
 

@@ -13,13 +13,13 @@ pm2_node_env: "production"
 bundle_s3_bucket: "traveloka-builds"
 bundle_s3_object: "{{ service_name }}/{{ pm2_node_env }}/bin/{{ service_version }}.tar.gz"
 
-pm2_delete_before_start: false
+pm2_delete_before_start: no
 pm2_kill_timeout: 20000
 pm2_instance_var: "INSTANCE_ID"
 pm2_instance_number: "{{ ansible_processor_cores }}"
 pm2_max_memory: "1G"
 pm2_node_group: "{{ ansible_hostname }}"
-pm2_wait_ready: false
+pm2_wait_ready: no
 
 pm2_log_date_format: "YYYY-MM-DDTHH:mm:ss ZZ"
 pm2_output_file: "/var/traveloka/log/{{ service_name }}_out.log"
@@ -45,7 +45,7 @@ pm2_ecosystem_content:
       instances: "{{ pm2_instance_number | default(omit) }}"
       max_memory_restart: "{{ pm2_max_memory | default(omit) }}"
       kill_timeout: "{{ pm2_kill_timeout | default(omit) }}"
-      merge_logs: true
+      merge_logs: yes
       log_date_format: "{{ pm2_log_date_format }}"
       out_file: "{{ pm2_output_file }}"
       error_file: "{{ pm2_error_file }}"

@@ -1,9 +1,10 @@
 - name: download archive from s3
-  s3:
+  aws_s3:
     mode: geturl
     bucket: "{{ bundle_s3_bucket }}"
     object: "{{ bundle_s3_object }}"
-  run_once: true
+    ignore_nonexistent_bucket: yes
+  run_once: yes
   delegate_to: 127.0.0.1
   register: s3_url
 

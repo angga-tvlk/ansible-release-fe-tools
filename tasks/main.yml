@@ -1,4 +1,5 @@
 - include: deploy.yml
+- include: node-install.yml
 - include: pm2-install.yml
 - include: start.yml
 - include: clean.yml

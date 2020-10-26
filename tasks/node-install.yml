@@ -1,0 +1,21 @@
+- name: Install the gpg key for nodejs LTS
+  apt_key:
+    url: \"https://deb.nodesource.com/gpgkey/nodesource.gpg.key\"
+    state: present
+  become: yes
+  when: install_node
+
+- name: Install the nodejs LTS repos
+  apt_repository:
+    repo: "{{ node_repo }}"
+    state: present
+    update_cache: yes
+  become: yes
+  when: install_node
+
+- name: Install the nodejs
+  apt:
+    name: nodejs
+    state: present
+  become: yes
+  when: install_node

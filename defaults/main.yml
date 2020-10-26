@@ -50,3 +50,7 @@ pm2_ecosystem_content:
       out_file: "{{ pm2_output_file }}"
       error_file: "{{ pm2_error_file }}"
       wait_ready: "{{ pm2_wait_ready | default(omit) }}"
+
+# Custom node version
+install_node: no
+node_repo: \"deb https://deb.nodesource.com/node_12.x xenial main\"

@@ -53,4 +53,4 @@ pm2_ecosystem_content:
 
 # Custom node version
 install_node: no
-node_repo: \"deb https://deb.nodesource.com/node_12.x xenial main\"
+node_repo: "deb https://deb.nodesource.com/node_12.x xenial main"

@@ -10,7 +10,7 @@ service_directory_current: "{{ service_directory }}/current"
 
 pm2_node_env: "production"
 # source bundle
-bundle_s3_bucket: "traveloka-builds"
+bundle_s3_bucket: "" # use your own bucket
 bundle_s3_object: "{{ service_name }}/{{ pm2_node_env }}/bin/{{ service_version }}.tar.gz"
 
 pm2_delete_before_start: no

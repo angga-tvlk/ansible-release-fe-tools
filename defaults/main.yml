@@ -13,6 +13,7 @@ pm2_node_env: "production"
 bundle_s3_bucket: "" # use your own bucket
 bundle_s3_object: "{{ service_name }}/{{ pm2_node_env }}/bin/{{ service_version }}.tar.gz"
 
+pm2_version: "^2.6.0"
 pm2_delete_before_start: no
 pm2_kill_timeout: 20000
 pm2_instance_var: "INSTANCE_ID"

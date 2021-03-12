@@ -2,7 +2,7 @@
   npm:
     name: pm2
     global: yes
-    version: "^4.5.5"
+    version: "{{ pm2_version }}"
   register: npm_result
   become: yes
 
